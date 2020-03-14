@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import lombok.extern.log4j.Log4j;
 import me.kangfru.member.dto.MemberDTO;
 import me.kangfru.member.service.MemberService;
 
@@ -26,6 +25,6 @@ public class MemberController {
 	@PostMapping("/signIn")
 	public String signIn(Model model, MemberDTO dto) {
 		memberService.signIn(dto);
-		return "member/signIn";
+		return "redirect:localhost:8080/";
 	}
 }

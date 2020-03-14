@@ -11,6 +11,7 @@ public interface MemberMapper {
 
 	List<MemberDTO> list();
 	MemberDTO view();
-	Integer siginIn(MemberDTO dto);
+	Integer signIn(MemberDTO dto);
 	Integer signOut();
+	
 }

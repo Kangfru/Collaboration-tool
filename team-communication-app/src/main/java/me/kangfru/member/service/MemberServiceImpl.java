@@ -2,16 +2,16 @@ package me.kangfru.member.service;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import lombok.AllArgsConstructor;
 import me.kangfru.member.dto.MemberDTO;
 import me.kangfru.member.mapper.MemberMapper;
 
 @Service
+@AllArgsConstructor
 public class MemberServiceImpl implements MemberService {
 
-	@Autowired
 	private MemberMapper memberMapper;
 	
 	@Override
@@ -29,7 +29,7 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Integer signIn(MemberDTO dto) {
 		// TODO Auto-generated method stub
-		return memberMapper.siginIn(dto);
+		return memberMapper.signIn(dto);
 	}
 
 	@Override

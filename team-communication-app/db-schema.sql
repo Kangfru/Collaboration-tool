@@ -1,18 +1,34 @@
+-- CREATE DATABASE teamcommunication;
+
+-- SHOW DATABASES;
+
+-- CREATE USER 'kangfru'@'localhost' IDENTIFIED BY '1234';
+
+-- GRANT ALL PRIVILEGES ON teamcommunication.*TO 'kangfru'@'localhost';
+
+-- FLUSH PRIVILEGES;
+
+DROP TABLE members;
+DROP TABLE projecets;
+DROP TABLE project_member;
+DROP TABLE channels;
+DROP TABLE channelMessage;
+
 CREATE TABLE members(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	email VARCHAR(50) NOT NULL,
 	nickName VARCHAR(50) NOT NULL,
 	pw VARCHAR(50) NOT NULL
-)
+);
 
-ALTER TABLE members ADD COLUMN photo VARCHAR(50) DEFAULT 'upload/images/default.jpg'
+ALTER TABLE members ADD COLUMN photo VARCHAR(50) DEFAULT 'upload/images/default.jpg';
 
 CREATE TABLE projects(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	projectName VARCHAR(50) NOT NULL,
 	admin_id INT,
 	FOREIGN KEY(admin_id) REFERENCES members(id)
-)
+);
 
 CREATE TABLE project_member(
 	member_id INT,
@@ -20,14 +36,14 @@ CREATE TABLE project_member(
 	PRIMARY KEY(member_id, project_id),
 	FOREIGN KEY(member_id) REFERENCES members(id),
 	FOREIGN KEY(project_id) REFERENCES projects(id)	
-)
+);
 
 CREATE TABLE channels(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	channelName VARCHAR(50) NOT NULL,
 	project_id INT NOT NULL,
 	FOREIGN KEY(project_id) REFERENCES projects(id)
-)
+);
 
 CREATE TABLE channelMessage(
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -38,4 +54,4 @@ CREATE TABLE channelMessage(
 	FOREIGN KEY(member_id) REFERENCES members(id),
 	FOREIGN KEY(channel_id) REFERENCES channels(id)
 	
-)
+);
