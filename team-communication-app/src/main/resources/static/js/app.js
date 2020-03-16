@@ -17,9 +17,6 @@ function connect() {
 	stompClient.connect({}, function(frame) {
 		setConnected(true);
 		console.log('Connected: ' + frame);
-		stompClient.subscribe('/topic/greetings', function(greeting) {
-			showGreeting(JSON.parse(greeting.body).content);
-		});
 		stompClient.subscribe('/channel/message/chat', function (chat) {
 	    	showChat(JSON.parse(chat.body));
 	    });
@@ -27,7 +24,7 @@ function connect() {
 }
 
 function sendChat() {
-	stompClient.send("/channel/message/chat", {}, JSON.stringify({'name': $("#name").val(), 'message': $("#chatMessage").val()}));
+	stompClient.send("/channel/message/chat", {}, JSON.stringify({'name': 'test', 'message': $("#chatMessage").val()}));
 }
 
 function showChat(chat) {
@@ -42,16 +39,6 @@ function disconnect() {
 	console.log("Disconnected");
 }
 
-function sendName() {
-	stompClient.send("/app/hello", {}, JSON.stringify({
-		'name' : $("#name").val()
-	}));
-}
-
-function showGreeting(message) {
-	$("#greetings").append("<tr><td>" + message + "</td></tr>");
-}
-
 $(function() {
 	$("form").on('submit', function(e) {
 		e.preventDefault();
@@ -61,9 +48,6 @@ $(function() {
 	});
 	$("#disconnect").click(function() {
 		disconnect();
-	});
-	$("#send").click(function() {
-		sendName();
 	});
 	$( "#chatSend" ).click(function(){ 
 		sendChat(); 

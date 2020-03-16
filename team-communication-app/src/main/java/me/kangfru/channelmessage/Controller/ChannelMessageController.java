@@ -20,6 +20,7 @@ public class ChannelMessageController {
 	@MessageMapping("/channel")
 	@SendTo("/channel/message/chat")
 	public ChannelMessageDTO chat(ChannelMessageDTO dto) throws Exception {
+		System.out.println("dto");
 		dto.setMessage("Test");
 		return dto;
 	}
