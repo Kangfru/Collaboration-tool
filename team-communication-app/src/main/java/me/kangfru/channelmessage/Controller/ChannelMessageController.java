@@ -17,11 +17,11 @@ public class ChannelMessageController {
 		return "channel/message/channelMessage";
 	}
 	
-	@MessageMapping("/channel")
+	@MessageMapping("/chat")
 	@SendTo("/channel/message/chat")
 	public ChannelMessageDTO chat(ChannelMessageDTO dto) throws Exception {
-		System.out.println("dto");
-		dto.setMessage("Test");
+		System.out.println(dto);
+		dto.setNickName("닉네임");
 		return dto;
 	}
 }

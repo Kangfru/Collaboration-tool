@@ -9,9 +9,9 @@ import me.kangfru.member.dto.MemberDTO;
 @Mapper
 public interface MemberMapper {
 
-	List<MemberDTO> list();
-	MemberDTO view();
-	Integer signIn(MemberDTO dto);
-	Integer signOut();
+	public List<MemberDTO> list();
+	public MemberDTO view();
+	public Integer signIn(MemberDTO dto);
+	public Integer signOut();
 	
 }

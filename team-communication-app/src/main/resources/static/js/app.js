@@ -17,18 +17,21 @@ function connect() {
 	stompClient.connect({}, function(frame) {
 		setConnected(true);
 		console.log('Connected: ' + frame);
-		stompClient.subscribe('/channel/message/chat', function (chat) {
-	    	showChat(JSON.parse(chat.body));
+		
+		stompClient.subscribe('/channel/message/chat', function (dto) {
+			console.log(dto)
+	    	showChat(JSON.parse(dto.body));
 	    });
 	});
 }
 
 function sendChat() {
-	stompClient.send("/channel/message/chat", {}, JSON.stringify({'name': 'test', 'message': $("#chatMessage").val()}));
+	stompClient.send("/app/chat", {}, JSON.stringify({'id': '1', 'message': $("#chatMessage").val(), 'sendDate':'2020-03-17',
+		'member_id':'1', 'channel_id':'1'}));
 }
 
-function showChat(chat) {
-  $("#greetings").append("<tr><td>" + chat.name + " : " + chat.message + "</td></tr>");
+function showChat(dto) {
+  $("#greetings").append("<tr><td>" + dto.nickName + " : " + dto.message + " - " + dto.sendDate + "</td></tr>");
 }
 
 function disconnect() {
