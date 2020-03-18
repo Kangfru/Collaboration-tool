@@ -26,8 +26,7 @@ function connect() {
 }
 
 function sendChat() {
-	stompClient.send("/app/chat", {}, JSON.stringify({'id': '1', 'message': $("#chatMessage").val(), 'sendDate':'2020-03-17',
-		'member_id':'1', 'channel_id':'1'}));
+	stompClient.send("/app/chat", {}, JSON.stringify({'message': $("#chatMessage").val(), 'member_id':'1', 'channel_id':'1'}));
 }
 
 function showChat(dto) {

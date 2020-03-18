@@ -8,7 +8,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
-@SpringBootApplication
+//@SpringBootApplication(scanBasePackages={"me.kangfru.channelmessage"})
+@SpringBootApplication()
 public class TeamCommunicationAppApplication {
 
 	public static void main(String[] args){

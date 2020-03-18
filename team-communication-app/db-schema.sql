@@ -37,7 +37,7 @@ CREATE TABLE project_member(
 	FOREIGN KEY(member_id) REFERENCES members(id),
 	FOREIGN KEY(project_id) REFERENCES projects(id)	
 );
-
+members
 CREATE TABLE channels(
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	channelName VARCHAR(50) NOT NULL,
@@ -55,3 +55,9 @@ CREATE TABLE channelMessage(
 	FOREIGN KEY(channel_id) REFERENCES channels(id)
 	
 );
+
+INSERT INTO projects (projectName, admin_id)
+VALUES ('General', 1);
+
+INSERT INTO project_member(project_id, member_id)
+VALUES (1, 1);

@@ -9,7 +9,7 @@ import me.kangfru.channelmessage.dto.ChannelMessageDTO;
 @Mapper 
 public interface ChannelMessageMapper {
 
-	public List<ChannelMessageDTO> getChat(int channel_id);
+//	public List<ChannelMessageDTO> getChat(int channel_id);
 	public Integer saveChatToDB(ChannelMessageDTO dto);
 	
 }
