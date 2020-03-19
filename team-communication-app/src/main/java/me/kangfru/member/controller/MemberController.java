@@ -9,7 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import me.kangfru.member.dto.MemberDTO;
 import me.kangfru.member.service.MemberService;
@@ -37,12 +39,13 @@ public class MemberController {
 		return "member/login";
 	}
 	
-	@PostMapping("/login")
-	public ResponseEntity<String> login(Model model, MemberDTO dto, HttpSession session) {
+	@RequestMapping(value = "/login", consumes = "application/json", produces = "application/text; charset=utf8", method = RequestMethod.POST)
+	public ResponseEntity<String> login(Model model, @RequestBody MemberDTO dto, HttpSession session) {
 		MemberDTO resultDTO = memberService.login(dto);
+		System.out.println(dto);
 		if(resultDTO != null) {
 			session.setAttribute("loginInfo", resultDTO);
-//			System.out.println(session.getAttribute("loginInfo"));
+			System.out.println(session.getAttribute("loginInfo"));
 			return new ResponseEntity<String>("로그인 성공", HttpStatus.OK);
 		}
 		else
