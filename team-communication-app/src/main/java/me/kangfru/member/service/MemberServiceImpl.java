@@ -32,6 +32,10 @@ public class MemberServiceImpl implements MemberService {
 		return memberMapper.signIn(dto);
 	}
 
+	public MemberDTO login(MemberDTO dto) {
+		return memberMapper.login(dto);
+	}
+	
 	@Override
 	public Integer signOut() {
 		// TODO Auto-generated method stub

@@ -2,8 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="me.kangfru.member.mapper.MemberMapper">
 	<select id="list" resultType="me.kangfru.member.dto.MemberDTO">
-		SELECT * FROM member;
+		SELECT * FROM members;
 	</select>
+
+	<select id="login" resultType="me.kangfru.member.dto.MemberDTO">
+		SELECT id, email, pw, nickName, photo FROM members WHERE email = #{email} and pw = #{pw};
+	</select>
+	
 	<insert id="signIn">
 		INSERT INTO members(email, pw, nickName)
 		VALUES(#{email}, #{pw}, #{nickName})

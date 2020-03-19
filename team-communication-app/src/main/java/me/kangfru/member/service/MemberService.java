@@ -6,9 +6,10 @@ import me.kangfru.member.dto.MemberDTO;
 
 public interface MemberService {
 
-	List<MemberDTO> list();
-	MemberDTO view();
-	Integer signIn(MemberDTO dto);
-	Integer signOut();
+	public List<MemberDTO> list();
+	public MemberDTO view();
+	public Integer signIn(MemberDTO dto);
+	public MemberDTO login(MemberDTO dto);
+	public Integer signOut();
 	
 }

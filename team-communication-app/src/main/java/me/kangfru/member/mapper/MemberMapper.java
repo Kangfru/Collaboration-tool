@@ -12,6 +12,7 @@ public interface MemberMapper {
 	public List<MemberDTO> list();
 	public MemberDTO view();
 	public Integer signIn(MemberDTO dto);
+	public MemberDTO login(MemberDTO dto);
 	public Integer signOut();
 	
 }
