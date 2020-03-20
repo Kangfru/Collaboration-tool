@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="me.kangfru.project.mapper.ProjectMapper">
+	<select id="list" resultType="me.kangfru.project.dto.ProjectDTO">
+		SELECT p.id, p.projectName FROM projects p 
+		WHERE EXISTS
+		(
+			SELECT project_id FROM project_member
+			WHERE p.id = project_id AND member_id = #{member_id}
+		);
+	</select>
+</mapper>

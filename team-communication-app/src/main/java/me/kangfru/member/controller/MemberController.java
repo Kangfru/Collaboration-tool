@@ -41,7 +41,8 @@ public class MemberController {
 
 	@GetMapping("/logout")
 	public String logout(Model model, HttpSession session) {
-		session.invalidate();
+		if(session.getAttribute("loginInfo") != null)
+			session.removeAttribute("loginInfo");
 		return "redirect:/";
 	}
 	

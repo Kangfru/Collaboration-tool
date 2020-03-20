@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="ko">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no"/>
+	<script src="/webjars/jquery/3.1.1-1/jquery.min.js"></script>
+	<link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>project list</title>
+</head>
+<body>
+	<div class="container">
+		<table>
+			<tr th:each="list : ${list}">
+				<td>[[${list.id}]]</td>
+				<td>[[${list.projectName}]]</td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

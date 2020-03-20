@@ -57,7 +57,28 @@ CREATE TABLE channelMessage(
 );
 
 INSERT INTO projects (projectName, admin_id)
-VALUES ('General', 1);
+VALUES ('Test Project 2', 1);
 
 INSERT INTO project_member(project_id, member_id)
-VALUES (1, 1);
+VALUES (2, 1);
+
+UPDATE projects SET projectName = 'Test Project' WHERE id = 1;
+
+SELECT id, projectName FROM projects;
+SELECT p.id, p.projectName FROM members m, projects p, project_member pm WHERE 
+
+SELECT pm.project_id FROM members m, project_member pm WHERE pm.member_id = m.id = 2;
+
+SELECT p.id, p.projectName FROM projects p WHERE p.id = ANY(
+	SELECT pm.project_id id FROM project_member pm WHERE pm.member_id = 2
+);
+
+SELECT p.id, p.projectname FROM projects p 
+WHERE EXISTS
+(
+	SELECT project_id FROM project_member
+   WHERE p.id = project_id AND member_id = 1
+);
+
+INSERT INTO project_member(project_id, member_id)
+VALUES (1,2);
