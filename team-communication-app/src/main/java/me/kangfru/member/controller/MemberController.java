@@ -38,6 +38,12 @@ public class MemberController {
 	public String loginForm(Model model) {
 		return "member/login";
 	}
+
+	@GetMapping("/logout")
+	public String logout(Model model, HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
+	}
 	
 	@RequestMapping(value = "/login", consumes = "application/json", produces = "application/text; charset=utf8", method = RequestMethod.POST)
 	public ResponseEntity<String> login(Model model, @RequestBody MemberDTO dto, HttpSession session) {

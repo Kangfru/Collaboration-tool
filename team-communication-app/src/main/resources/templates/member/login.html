@@ -20,6 +20,7 @@
 			</div>		
 			<button>Login</button>
 		</form>
+		<div class="result"><p></p></div>
 	</div>
 	
 	<script type="text/javascript">
@@ -40,16 +41,11 @@
 			data:JSON.stringify(data),
 			contentType:"application/json; charset=utf-8",
 			success:function(result, status, xhr){
-				if(callback){
-					callback(result);
-					console.log(result);
-					console.log(status);
-				}
+				location="/";
 			},
 			error:function(xhr, status, er){
-				if(error){
-					error(er);
-				}
+				const resultDiv = document.querySelector(".result");
+				resultDiv.innerHTML = "<p style='color: red;'>로그인에 실패했습니다! 정보를 확인해주세요.</p>";
 			}
 		})
 	}

@@ -6,22 +6,27 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no" />
 <title>Index</title>
 <script src="/webjars/jquery/jquery.min.js"></script>
-<script src="/webjars/sockjs-client/sockjs.min.js"></script>
-<script src="/webjars/stomp-websocket/stomp.min.js"></script>
-<script src="/app.js"></script>
 </head>
 <body>
 	<div class="container">
-		<h1>Test Itmes</h1>
+		<h1>메인</h1>
 		<table class="table">
 			<thead class="thead-dark">
 				<tr>
-					<th scope="col">column1</th>
+					<th scope="col">메인페이지</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="item, stat : ${list}">
-					<td th:text="${item.column1}"></td>
+				<tr>
+					<td>
+						<span th:if="${session.loginInfo}!=null">[[${session.loginInfo.nickName}]]님 환영합니다!
+							<a href="member/logout"><button class="btn btn-default">Logout</button></a>
+						</span>
+						<span th:if="${session.loginInfo}==null">
+							<a href="member/login"><button class="btn btn-default">Login</button></a>
+						</span>
+						
+					</td>
 				</tr>
 			</tbody>
 		</table>
