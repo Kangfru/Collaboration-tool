@@ -20,5 +20,10 @@ public class ProjectServiceImpl implements ProjectService {
 		return mapper.list(member_id);
 	}
 
+	@Override
+	public ProjectDTO view(int project_id) {
+		// TODO Auto-generated method stub
+		return mapper.view(project_id);
+	}
 	
 }

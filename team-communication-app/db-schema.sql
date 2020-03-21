@@ -57,12 +57,17 @@ CREATE TABLE channelMessage(
 );
 
 INSERT INTO projects (projectName, admin_id)
-VALUES ('Test Project 2', 1);
+VALUES ('Test Project', 1);
 
 INSERT INTO project_member(project_id, member_id)
 VALUES (2, 1);
 
+INSERT INTO members(email, nickName, pw)
+VALUES('kangfru@gmail.com', '강프루시안테', '1234');
 UPDATE projects SET projectName = 'Test Project' WHERE id = 1;
+
+INSERT INTO channels(channelName, project_id)
+VALUES('General', 2);
 
 SELECT id, projectName FROM projects;
 SELECT p.id, p.projectName FROM members m, projects p, project_member pm WHERE 

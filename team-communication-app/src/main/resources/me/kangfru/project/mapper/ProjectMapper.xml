@@ -7,6 +7,9 @@
 		(
 			SELECT project_id FROM project_member
 			WHERE p.id = project_id AND member_id = #{member_id}
-		);
+		)
+	</select>
+	<select id="view" resultType="me.kangfru.project.dto.ProjectDTO">
+		SELECT * FROM channels
 	</select>
 </mapper>
