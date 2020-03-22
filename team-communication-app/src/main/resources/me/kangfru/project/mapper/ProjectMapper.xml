@@ -9,7 +9,14 @@
 			WHERE p.id = project_id AND member_id = #{member_id}
 		)
 	</select>
+	
 	<select id="view" resultType="me.kangfru.project.dto.ProjectDTO">
 		SELECT * FROM channels
+	</select>
+	
+	<select id="getChannelList" resultType="me.kangfru.project.dto.ChannelDTO">
+		SELECT id, channelName, project_id
+		FROM channels
+		WHERE project_id = #{project_id}
 	</select>
 </mapper>

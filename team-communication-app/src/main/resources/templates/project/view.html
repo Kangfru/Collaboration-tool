@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="ko">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no"/>
+	<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<script src="/webjars/jquery/jquery.min.js"></script>
+	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+	<script src="/resources/js/app.js"></script>
+	<title>project view</title>
+</head>
+<body>
+	<div class="container">
+		<table>
+			<tr th:each="list : ${channelList}">
+				<td>[[${list.id}]]</td>
+				<!--<td><a th:href="@{/project/channel/view(project_id=${list.project_id}, channel_id=${list.id})}">[[${list.channelName}]]</a></td>  -->
+				<td><a th:href="@{/project/channel/view(project_id=${list.project_id}, channel_id=${list.id})}">[[${list.channelName}]]</a></td>
+			</tr>
+		</table>
+		<div class="col-md-6">
+			<table class="chat">
+			</table>
+			<form class="form-inline">
+				<input type="hidden" th:value="${session.loginInfo.id}" name="member_id" id="member_id" />
+				<input type="hidden" th:value="1" name="channel_id" id="channel_id" />
+				<input type="hidden" th:value="${session.loginInfo.nickName}" name="nickName" id="nickName" />
+				<div class="form-group">
+					<label for="message">Input Message</label> <input type="text"
+						id="chatMessage" class="form-control" placeholder="message.." />
+				</div>
+				<button id="chatSend" class="btn btn-default" type="button">Chat
+					Send</button>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

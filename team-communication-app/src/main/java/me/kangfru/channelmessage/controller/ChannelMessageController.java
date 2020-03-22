@@ -27,7 +27,6 @@ public class ChannelMessageController {
 	@MessageMapping("/chat")
 	@SendTo("/channel/message/chat")
 	public ChannelMessageDTO chat(ChannelMessageDTO dto) throws Exception {
-		dto.setNickName("강프루");
 		dto.setSendDate(new Date());
 		System.out.println("ChannelMessageController.chat().dto : " + dto);
 		Integer result = service.saveChatToDB(dto);

@@ -25,7 +25,7 @@ public class ProjectController {
 	
 	@GetMapping(value = "/view")
 	public String view(Model model, @RequestParam int project_id) {
-		model.addAttribute("channelList", service.view(project_id));
+		model.addAttribute("channelList", service.getChannelList(project_id));
 		return "project/view";
 	}
 	

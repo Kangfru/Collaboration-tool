@@ -18,19 +18,29 @@ function connect() {
 		setConnected(true);
 		console.log('Connected: ' + frame);
 		
-		stompClient.subscribe('/channel/message/chat', function (dto) {
-			console.log(dto)
-	    	showChat(JSON.parse(dto.body));
-	    });
+//		stompClient.subscribe('/channel/message/chat', function (dto) {
+//			console.log(dto)
+//	    	showChat(JSON.parse(dto.body));
+//	    });
 	});
 }
 
 function sendChat() {
-	stompClient.send("/app/chat", {}, JSON.stringify({'message': $("#chatMessage").val(), 'member_id':'1', 'channel_id':'1'}));
+	const member_id = document.querySelector('#member_id');
+	const channel_id = document.querySelector('#channel_id');
+	const nickName = document.querySelector('#nickName').value;
+	const message = $("#chatMessage").val();
+	stompClient.send("/app/chat", {}, JSON.stringify({'message': message, 'member_id':member_id.value, 'channel_id':channel_id.value}));
+	var dto = {
+			nickName : nickName,
+			message : message,
+			sendDate : new Date()
+	}
+	showChat(dto);
 }
 
 function showChat(dto) {
-  $("#greetings").append("<tr><td>" + dto.nickName + " : " + dto.message + " - " + dto.sendDate + "</td></tr>");
+  $(".chat").append("<tr><td>" + dto.nickName + " : " + dto.message + " - " + dto.sendDate + "</td></tr>");
 }
 
 function disconnect() {
@@ -55,3 +65,9 @@ $(function() {
 		sendChat(); 
 	});
 });
+
+function init(){
+	connect();
+};
+
+init();
