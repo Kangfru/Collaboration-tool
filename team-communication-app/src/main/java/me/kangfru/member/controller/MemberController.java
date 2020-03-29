@@ -52,7 +52,7 @@ public class MemberController {
 		System.out.println(dto);
 		if(resultDTO != null) {
 			session.setAttribute("loginInfo", resultDTO);
-			System.out.println(session.getAttribute("loginInfo"));
+//			System.out.println(session.getAttribute("loginInfo"));
 			return new ResponseEntity<String>("로그인 성공", HttpStatus.OK);
 		}
 		else

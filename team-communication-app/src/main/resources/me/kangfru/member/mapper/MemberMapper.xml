@@ -6,7 +6,9 @@
 	</select>
 
 	<select id="login" resultType="me.kangfru.member.dto.MemberDTO">
-		SELECT id, email, pw, nickName, photo FROM members WHERE email = #{email} and pw = #{pw};
+		SELECT id, email, pw, nickName, photo 
+		FROM members 
+		WHERE email = #{email} and pw = #{pw};
 	</select>
 	
 	<insert id="signIn">

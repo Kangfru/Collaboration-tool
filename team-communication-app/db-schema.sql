@@ -87,3 +87,6 @@ WHERE EXISTS
 
 INSERT INTO project_member(project_id, member_id)
 VALUES (1,2);
+
+INSERT INTO channels(channelName, project_id)
+VALUES('test channel', 1);

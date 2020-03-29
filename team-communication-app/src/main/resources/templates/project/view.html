@@ -12,26 +12,31 @@
 </head>
 <body>
 	<div class="container">
-		<table>
-			<tr th:each="list : ${channelList}">
-				<td>[[${list.id}]]</td>
-				<!--<td><a th:href="@{/project/channel/view(project_id=${list.project_id}, channel_id=${list.id})}">[[${list.channelName}]]</a></td>  -->
-				<td><a th:href="@{/project/channel/view(project_id=${list.project_id}, channel_id=${list.id})}">[[${list.channelName}]]</a></td>
-			</tr>
-		</table>
-		<div class="col-md-6">
-			<table class="chat">
+		<div class="col-md-3">
+			<table>
+				<tr th:each="list : ${channelList}">
+					<td>[[${list.id}]]</td>
+					<td><a th:href="@{/project/view(project_id=${param.project_id}, channel_id=${list.id})}">[[${list.channelName}]]</a></td>
+				</tr>
 			</table>
+		</div>
+		<div class="col-md-9">
+			<div class="row chat-log">
+				<table class="chat">
+				<tr th:each="chatLog : ${chatLog}">
+					<td>[[${chatLog.nickName}]] : [[${chatLog.message}]] - [[${#dates.format(chatLog.sendDate, 'MM/dd aa hh:mm')}]]</td>
+				</tr>
+				</table>
+			</div>
 			<form class="form-inline">
 				<input type="hidden" th:value="${session.loginInfo.id}" name="member_id" id="member_id" />
-				<input type="hidden" th:value="1" name="channel_id" id="channel_id" />
+				<input type="hidden" th:value="${param.channel_id}" name="channel_id" id="channel_id" />
 				<input type="hidden" th:value="${session.loginInfo.nickName}" name="nickName" id="nickName" />
-				<div class="form-group">
+				<div class="form-group fixed-bottom">
 					<label for="message">Input Message</label> <input type="text"
 						id="chatMessage" class="form-control" placeholder="message.." />
 				</div>
-				<button id="chatSend" class="btn btn-default" type="button">Chat
-					Send</button>
+				<button id="chatSend" class="btn btn-default" type="button">Chat Send</button>
 			</form>
 		</div>
 	</div>

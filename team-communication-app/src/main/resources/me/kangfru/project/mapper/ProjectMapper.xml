@@ -18,5 +18,21 @@
 		SELECT id, channelName, project_id
 		FROM channels
 		WHERE project_id = #{project_id}
+		ORDER BY id
 	</select>
+	
+	<select id="getGeneralChannelID" resultType="java.lang.Integer">
+		SELECT id
+		FROM channels
+		WHERE project_id = #{id}
+		ORDER BY id limit 1;
+	</select>
+	
+	<select id="getChatLog" resultType="me.kangfru.channelmessage.dto.ChannelMessageDTO">
+		SELECT c.id, message, sendDate, member_id, channel_id, m.nickName
+		FROM channelmessage c, members m
+		WHERE channel_id = #{channel_id} and c.member_id = m.id
+		ORDER BY sendDate
+	</select>
+	
 </mapper>

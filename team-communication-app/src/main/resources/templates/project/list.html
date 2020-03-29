@@ -13,7 +13,7 @@
 		<table>
 			<tr th:each="list : ${list}">
 				<td>[[${list.id}]]</td>
-				<td><a th:href="@{/project/view(project_id=${list.id})}">[[${list.projectName}]]</a></td>
+				<td><a th:href="@{/project/view(project_id=${list.id}, channel_id=${list.generalChannelId})}">[[${list.projectName}]]</a></td>
 			</tr>
 		</table>
 	</div>
