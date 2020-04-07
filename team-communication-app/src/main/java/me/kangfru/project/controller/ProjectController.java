@@ -22,8 +22,8 @@ public class ProjectController {
 	@GetMapping(value = "/list")
 	public String list(Model model, @RequestParam int member_id) {
 		List<ProjectDTO> list = service.list(member_id);
-		for(ProjectDTO d : list) {
-			d.setGeneralChannelId(service.getGeneralChannelID(d.getId()));
+		for(ProjectDTO dto : list) {
+			dto.setGeneralChannelId(service.getGeneralChannelID(dto.getId()));
 		}
 		System.out.println(list);
 		model.addAttribute("list", list);
