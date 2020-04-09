@@ -32,7 +32,10 @@ public class ProjectController {
 	
 	@GetMapping(value = "/view")
 	public String view(Model model, @RequestParam int project_id, @RequestParam int channel_id) {
+		model.addAttribute("projectDTO", service.view(project_id));
 		model.addAttribute("channelList", service.getChannelList(project_id));
+		model.addAttribute("memberList", service.getMemberList(project_id));
+		model.addAttribute("channelNow", service.getChannelNow(channel_id));
 		model.addAttribute("chatLog", service.getChatLog(channel_id));
 		return "project/view"; 
 	}

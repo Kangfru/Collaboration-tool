@@ -10,16 +10,8 @@
 		)
 	</select>
 	
-	<resultMap id="viewResult" type="me.kangfru.project.dto.ProjectDTO">
-		<result column="id" property="id" />
-		<result column="projectName" property="projectName" />
-		<result column="admin_id" property="admin_id" />	
-	</resultMap>
-	
-	<select id="view" resultMap="viewResult">
-		SELECT id, projectName, admin_id 
-		FROM projects 
-		WHERE id = #{project_id}
+	<select id="view" resultType="me.kangfru.project.dto.ProjectDTO">
+		SELECT * FROM channels
 	</select>
 	
 	<select id="getChannelList" resultType="me.kangfru.project.dto.ChannelDTO">
@@ -36,26 +28,11 @@
 		ORDER BY id limit 1;
 	</select>
 	
-	<select id="getMemberList" resultType="me.kangfru.member.dto.MemberDTO">
-		SELECT m.id, m.nickName FROM members m 
-		WHERE EXISTS
-		(
-			SELECT member_id FROM project_member
-			WHERE m.id = member_id AND project_id = #{project_id}
-		)
-	</select>
-	
 	<select id="getChatLog" resultType="me.kangfru.channelmessage.dto.ChannelMessageDTO">
 		SELECT c.id, message, sendDate, member_id, channel_id, m.nickName
 		FROM channelmessage c, members m
 		WHERE channel_id = #{channel_id} and c.member_id = m.id
 		ORDER BY sendDate
-	</select>
-	
-	<select id="getChannelNow" resultType="java.lang.String">
-		SELECT channelName
-		FROM channels
-		WHERE id = #{channel_id}
 	</select>
 	
 </mapper>

@@ -1,4 +1,5 @@
 var stompClient = null;
+
 function setConnected(connected) {
 	$("#connect").prop("disabled", connected);
 	$("#disconnect").prop("disabled", !connected);
@@ -24,6 +25,31 @@ function connect() {
 	});
 }
 
+function sendChat() {
+	const member_id = document.querySelector('#member_id');
+	const channel_id = document.querySelector('#channel_id');
+	const nickName = document.querySelector('#nickName').value;
+	const message = $("#chatMessage").val();
+	stompClient.send("/app/chat", {}, JSON.stringify({
+		'message' : message,
+		'member_id' : member_id.value,
+		'channel_id' : channel_id.value
+	}));
+	var dto = {
+		nickName : nickName,
+		message : message,
+		sendDate : new Date()
+	}
+	showChat(dto);
+}
+
+function showChat(dto) {
+	var sendDate = new Date(dto.sendDate).format("MM/dd a/p hh:mm");
+
+	$(".chat").append(
+			"<tr><td>" + dto.nickName + " : " + dto.message + " - "	+ sendDate + "</td></tr>");
+}
+
 function disconnect() {
 	if (stompClient !== null) {
 		stompClient.disconnect();
@@ -33,45 +59,17 @@ function disconnect() {
 }
 
 $(function() {
-	var pane = $('.chat-list');
-	pane.jScrollPane({
-		mouseWheelSpeed: 30
-	});
-	var api = pane.data('jsp');
-	api.scrollToBottom();
-	function showChat(dto) {
-		var sendDate = new Date(dto.sendDate).format("MM/dd a/p hh:mm");
-		$(".chat-list-ul").append("<li><div class='name'><span>" + dto.nickName + "</span></div><div class='message'><p>" + dto.message
-				+ "</p><span class='msg-time'>" + sendDate + "</span></div></li>");
-		$("#chatMessage").val('');
-	}
-
-	function sendChat() {
-		const member_id = document.querySelector('#member_id');
-		const channel_id = document.querySelector('#channel_id');
-		const nickName = document.querySelector('#nickName').value;
-		const message = $("#chatMessage").val();
-		stompClient.send("/app/chat", {}, JSON.stringify({
-			'message' : message,
-			'member_id' : member_id.value,
-			'channel_id' : channel_id.value
-		}));
-		var dto = {
-			nickName : nickName,
-			message : message,
-			sendDate : new Date()
-		}
-		showChat(dto);
-	}
-	
 	$("form").on('submit', function(e) {
 		e.preventDefault();
 	});
-	
+	$("#connect").click(function() {
+		connect();
+	});
+	$("#disconnect").click(function() {
+		disconnect();
+	});
 	$("#chatSend").click(function() {
 		sendChat();
-		pane.jScrollPane('reinitialise');
-		api.scrollToBottom();
 	});
 });
 

@@ -3,6 +3,7 @@ package me.kangfru.project.service;
 import java.util.List;
 
 import me.kangfru.channelmessage.dto.ChannelMessageDTO;
+import me.kangfru.member.dto.MemberDTO;
 import me.kangfru.project.dto.ChannelDTO;
 import me.kangfru.project.dto.ProjectDTO;
 
@@ -13,5 +14,7 @@ public interface ProjectService {
 	public List<ChannelDTO> getChannelList(int project_id);
 	public Integer getGeneralChannelID(int project_id);
 	public List<ChannelMessageDTO> getChatLog(int channel_id);
+	public List<MemberDTO> getMemberList(int project_id);
+	public String getChannelNow(int channel_id);
 	
 }

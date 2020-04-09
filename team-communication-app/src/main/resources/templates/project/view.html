@@ -1,63 +1,90 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head lang="ko">
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no"/>
-	<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<script src="/webjars/jquery/jquery.min.js"></script>
-	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
-	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
-	<script src="/resources/js/app.js"></script>
-	<title>project view</title>
-	<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic&display=swap" rel="stylesheet">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style type="text/css">
-		body{
-			color: #fbfbfb;
-			background-color: #5e5e5e;
-			font-size: 17px;
-		}
-		.channel-list{
-			font-size: 20px;
-			font-family: 'Nanum Gothic', sans-serif;
-			background-color: #545454;
-			width: 10vw;
-			height: 100vh;
-		}
-		a:link { color: red; text-decoration: none;}
- 		a:visited { color: #808080; text-decoration: none;}
-		a:hover { backgrocolor: #808080; text-decoration: none;}
-	</style>
+<meta charset="UTF-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=no" />
+<link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<script src="/webjars/jquery/jquery.min.js"></script>
+<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jScrollPane/2.2.1/script/jquery.jscrollpane.js"></script>
+<script src="/resources/js/jQuery-Mousewheel-3.1.12.js"></script>
+<title>project view</title>
+<link
+	href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Nanum+Gothic&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jScrollPane/2.2.1/style/jquery.jscrollpane.css" integrity="sha256-5X6NN3xhW8S+VZA9dxOD5atCDiveHTBd3DtSu0Nut6E=" crossorigin="anonymous" />
+<link rel="stylesheet" type="text/css" href="/resources/css/chat.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-<!--  -->
-	<div class="container-fluid">
-		<div class="col-md-3 channel-list">
-			<table>
-				<tr th:each="list : ${channelList}">
-					<td><a th:href="@{/project/view(project_id=${param.project_id}, channel_id=${list.id})}">[[${list.channelName}]]</a></td>
-				</tr>
-			</table>
-		</div>
-		<div class="col-md-9">
-			<div class="row chat-log">
-				<table class="chat">
-				<tr th:each="chatLog : ${chatLog}">
-					<td>[[${chatLog.nickName}]] : [[${chatLog.message}]] - [[${#dates.format(chatLog.sendDate, 'MM/dd aa hh:mm')}]]</td>
-				</tr>
-				</table>
+	<div class="window-wrapper">
+		<div class="window-title">
+			<div class="title">
+				<span>[[${projectDTO.projectName}]]</span>
 			</div>
-			<form class="form-inline">
-				<input type="hidden" th:value="${session.loginInfo.id}" name="member_id" id="member_id" />
-				<input type="hidden" th:value="${param.channel_id}" name="channel_id" id="channel_id" />
-				<input type="hidden" th:value="${session.loginInfo.nickName}" name="nickName" id="nickName" />
-				<div class="form-group fixed-bottom">
-					<label for="message">Input Message</label>
-					<input type="text" id="chatMessage" class="form-control" placeholder="message.." />
+		</div>
+		<div class="window-area">
+			<div class="conversation-list">
+				<ul class="">
+					<li th:each="list : ${channelList}">
+						<a th:href="@{/project/view(project_id=${param.project_id}, channel_id=${list.id})}">[[${list.channelName}]]</a>
+					</li>
+					<li th:if="${projectDTO.admin_id} == ${session.loginInfo.id}">
+						<a href="#">+ 채널 추가하기</a>
+					</li>
+				</ul>
+			</div>
+			<div class="chat-area">
+				<div class="title" id="channel-title">
+					<b>[[${channelNow}]]</b>
 				</div>
-				<button id="chatSend" class="btn btn-default" type="button">Chat Send</button>
-			</form>
+				<div class="chat-list">
+					<ul class="chat-list-ul">
+						<li th:each="chatLog : ${chatLog}">
+							<div class="name">
+								<span class="">[[${chatLog.nickName}]]</span>
+							</div>
+							<div class="message">
+								<p>
+									[[${chatLog.message}]]
+								</p>
+								<span class="msg-time">[[${#dates.format(chatLog.sendDate, 'MM/dd aa hh:mm')}]]</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="input-area">
+					<div class="input-wrapper">
+						<form class="form-inline">
+							<input type="hidden" th:value="${session.loginInfo.id}" name="member_id" id="member_id" />
+							<input type="hidden" th:value="${param.channel_id}" name="channel_id" id="channel_id" />
+							<input type="hidden" th:value="${session.loginInfo.nickName}" name="nickName" id="nickName" />
+							<input type="text" value="" id="chatMessage">
+							<input type="submit" value="Submit" class="send-btn" id="chatSend">
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="right-tabs">
+				<ul class="tabs-container">
+					<li class="active">
+						<ul class="member-list">
+							<li th:each="memberList : ${memberList}"><span>[[${memberList.nickName}]]</span></li>
+							<li th:if="${projectDTO.admin_id} == ${session.loginInfo.id}">
+								<a href="#">+ 팀원 초대하기</a>
+							</li>
+						</ul>
+					</li>
+					<li></li>
+					<li></li>
+				</ul>
+			</div>
 		</div>
 	</div>
+	<script src="/resources/js/app.js"></script>
+	<script type="text/javascript">
+	</script>
 </body>
 </html>

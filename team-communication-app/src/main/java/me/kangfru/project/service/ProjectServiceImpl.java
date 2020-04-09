@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import me.kangfru.channelmessage.dto.ChannelMessageDTO;
+import me.kangfru.member.dto.MemberDTO;
 import me.kangfru.project.dto.ChannelDTO;
 import me.kangfru.project.dto.ProjectDTO;
 import me.kangfru.project.mapper.ProjectMapper;
@@ -43,6 +44,18 @@ public class ProjectServiceImpl implements ProjectService {
 	public List<ChannelMessageDTO> getChatLog(int channel_id) {
 		// TODO Auto-generated method stub
 		return mapper.getChatLog(channel_id);
+	}
+
+	@Override
+	public List<MemberDTO> getMemberList(int project_id) {
+		// TODO Auto-generated method stub
+		return mapper.getMemberList(project_id);
+	}
+
+	@Override
+	public String getChannelNow(int channel_id) {
+		// TODO Auto-generated method stub
+		return mapper.getChannelNow(channel_id);
 	}
 	
 }
