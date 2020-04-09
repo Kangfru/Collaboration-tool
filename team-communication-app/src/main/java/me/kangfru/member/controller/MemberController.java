@@ -23,15 +23,15 @@ public class MemberController {
 	@Autowired
 	private MemberService memberService;
 	
-	@GetMapping("/signIn")
+	@GetMapping("/signin")
 	public String signInForm(Model model) {
-		return "member/signIn";
+		return "member/signin";
 	}
 	
-	@PostMapping("/signIn")
+	@PostMapping("/signin")
 	public String signIn(Model model, MemberDTO dto) {
 		memberService.signIn(dto);
-		return "redirect:localhost:8080/";
+		return "redirect:/";
 	}
 
 	@GetMapping("/login")

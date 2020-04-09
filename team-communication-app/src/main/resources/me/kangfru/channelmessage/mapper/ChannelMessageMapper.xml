@@ -7,4 +7,9 @@
 		VALUES(#{message}, #{sendDate}, #{member_id}, #{channel_id})
 	</insert>
 	
+	<insert id="createChannel">
+		INSERT INTO channels(channelName, project_id)
+		VALUES (#{channelName}, #{project_id})
+	</insert>
+	
 </mapper>

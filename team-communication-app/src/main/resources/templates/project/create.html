@@ -6,17 +6,19 @@
 	<script src="/webjars/jquery/3.1.1-1/jquery.min.js"></script>
 	<link rel="stylesheet" href="/webjars/bootstrap/3.3.7/css/bootstrap.min.css">
 	<script src="/webjars/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<title>project list</title>
+	<title>Index</title>
 </head>
 <body>
 	<div class="container">
-		<table>
-			<tr th:each="list : ${list}">
-				<td>[[${list.id}]]</td>
-				<td><a th:href="@{/project/view(project_id=${list.id}, channel_id=${list.generalChannelId})}">[[${list.projectName}]]</a></td>
-			</tr>
-		</table>
-		<a th:href="@{/project/create(admin_id=${session.loginInfo.id})}"><button>프로젝트 생성하기</button></a>
+		<h3>프로젝트 만들기</h3>
+		<form name="projectForm" method="post" action="/project/create" class="projectForm">
+			<div class="form-group">
+				<input type="text" name="projectName" placeholder="Enter the project name" autocomplete="off" id="projectName"/>
+				<input type="hidden" th:value="${session.loginInfo.id}" name="admin_id" id="admin_id" />
+			</div>
+			<button>생성하기</button>
+		</form>
+		<div class="result"><p></p></div>
 	</div>
 </body>
 </html>

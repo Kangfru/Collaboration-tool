@@ -32,7 +32,7 @@
 						<a th:href="@{/project/view(project_id=${param.project_id}, channel_id=${list.id})}">[[${list.channelName}]]</a>
 					</li>
 					<li th:if="${projectDTO.admin_id} == ${session.loginInfo.id}">
-						<a href="#">+ 채널 추가하기</a>
+						<a id="channel_add">+ 채널 추가하기</a>
 					</li>
 				</ul>
 			</div>
@@ -73,7 +73,7 @@
 						<ul class="member-list">
 							<li th:each="memberList : ${memberList}"><span>[[${memberList.nickName}]]</span></li>
 							<li th:if="${projectDTO.admin_id} == ${session.loginInfo.id}">
-								<a href="#">+ 팀원 초대하기</a>
+								<a id="member_add">+ 팀원 초대하기</a>
 							</li>
 						</ul>
 					</li>
@@ -83,8 +83,92 @@
 			</div>
 		</div>
 	</div>
+	<div id="myModalChannel" class="modal">
+      <!-- Channel 추가 Modal content -->
+      <div class="modal-content">
+                <p style="text-align: center;"><span><b><span style="font-size: 14pt;">채널 추가하기</span></b></span></p>
+                <p style="text-align: center; line-height: 1.5;"><br />채널 이름</p>
+                <form class="form-inline" id="add_channel_form" name="add_channel_form" method="post">
+                	<input type="hidden" th:value="${param.project_id}" name="project_id"/>
+                	<input type="text" name="channelName" id="modal_channel_name">
+                </form>
+                <p><br /></p>
+                <button id="modal_submit_btn">생성하기</button>
+                <button id="modal_close_btn" onclick="close_pop()">취소하기</button>
+      </div>
+    </div>
+	<div id="myModalMember" class="modal">
+      <!-- Member 추가 Modal content -->
+      <div class="modal-content">
+                <p style="text-align: center;"><span><b><span style="font-size: 14pt;">멤버 추가하기</span></b></span></p>
+                <p style="text-align: center; line-height: 1.5;"><br />멤버 이메일</p>
+                <form class="form-inline" id="add_member_form" name="add_member_form" method="post">
+                	<input type="hidden" th:value="${param.project_id}" name="project_id"/>
+                	<input type="text" name="email" id="modal_member_eamil">
+                </form>
+                <p><br /></p>
+                <button id="modal_invite_btn">초대하기</button>
+                <button id="modal_close_btn" onclick="close_pop()">취소하기</button>
+      </div>
+    </div>
 	<script src="/resources/js/app.js"></script>
 	<script type="text/javascript">
+		const channel_add = document.querySelector("#channel_add");
+		const member_add = document.querySelector("#member_add");
+		const modal_submit_btn = document.querySelector("#modal_submit_btn");
+		const modal_invite_btn = document.querySelector("#modal_invite_btn");
+		
+		modal_submit_btn.addEventListener("click", function(event){
+			event.preventDefault();
+			var queryString = $("form[name=add_channel_form]").serialize();
+			 
+	        $.ajax({
+	            type : 'post',
+	            url : '/channel/create',
+	            data : queryString,
+	            dataType : 'json',
+	            success : function(xhr, status, result){
+	                close_pop();
+	                window.location.reload();
+	            },
+	        });
+		});
+		
+		modal_invite_btn.addEventListener("click", function(event){
+			event.preventDefault();
+			var queryString = $("form[name=add_member_form]").serialize();
+			 
+	        $.ajax({
+	            type : 'post',
+	            url : '/project/invite',
+	            data : queryString,
+	            dataType : 'json',
+	            success : function(xhr, status, result){
+	                close_pop();
+	                window.location.reload();
+	            },
+	        });
+		});
+		
+		
+		member_add.addEventListener("click", function(event){
+			event.preventDefault();
+			$('#myModalMember').show();
+		});
+		
+		channel_add.addEventListener("click", function(event){
+			event.preventDefault();
+	        $('#myModalChannel').show();
+		});
+		
+		function close_pop(flag) {
+			$("#modal_channel_name").val('');
+			$("#modal_member_email").val('');
+    		$('#myModalChannel').hide();
+    		$('#myModalMember').hide();
+		};
+
+
 	</script>
 </body>
 </html>

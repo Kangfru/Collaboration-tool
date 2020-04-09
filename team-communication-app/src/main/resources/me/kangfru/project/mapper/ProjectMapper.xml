@@ -58,4 +58,26 @@
 		WHERE id = #{channel_id}
 	</select>
 	
+	<insert id="createProject" parameterType="me.kangfru.project.dto.ProjectDTO" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO projects(projectName, admin_id)
+		VALUES (#{projectName}, #{admin_id})
+	</insert>
+	<insert id="initProject">
+		INSERT INTO project_member(member_id, project_id)
+		VALUES (#{admin_id}, #{id})
+	</insert>
+	<insert id="initChannel">
+		INSERT INTO channels(channelName, project_id)
+		VALUES ('General', #{id})
+	</insert>
+	
+	<insert id="inviteMember">
+		INSERT INTO project_member(member_id, project_id)
+		VALUES(
+			(SELECT id FROM members WHERE email = #{email}), #{project_id}
+		)
+		
+	</insert>
+	
+	
 </mapper>

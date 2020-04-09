@@ -57,5 +57,29 @@ public class ProjectServiceImpl implements ProjectService {
 		// TODO Auto-generated method stub
 		return mapper.getChannelNow(channel_id);
 	}
+
+	@Override
+	public Integer createProject(ProjectDTO dto) {
+		// TODO Auto-generated method stub
+		return mapper.createProject(dto);
+	}
+
+	@Override
+	public Integer initProject(ProjectDTO dto) {
+		// TODO Auto-generated method stub
+		return mapper.initProject(dto);
+	}
+
+	@Override
+	public Integer initChannel(ProjectDTO dto) {
+		// TODO Auto-generated method stub
+		return mapper.initChannel(dto);
+	}
+
+	@Override
+	public Integer inviteMember(String email, int project_id) {
+		// TODO Auto-generated method stub
+		return mapper.inviteMember(email, project_id);
+	}
 	
 }

@@ -19,5 +19,9 @@ public interface ProjectMapper {
 	public List<ChannelMessageDTO> getChatLog(int channel_id);
 	public List<MemberDTO> getMemberList(int project_id);
 	public String getChannelNow(int channel_id);
+	public Integer createProject(ProjectDTO dto);
+	public Integer initProject(ProjectDTO dto);
+	public Integer initChannel(ProjectDTO dto);
+	public Integer inviteMember(String email, int project_id);
 
 }
